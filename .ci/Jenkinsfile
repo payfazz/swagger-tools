@@ -13,10 +13,5 @@ node {
         stage('Push') {
             image.push()
         }
-        stage('Deploy') {
-            withCredentials([string(credentialsId: 'cashfazz-deployer-staging', variable: 'token')]) {
-                sh "curl -fsSH 'Content-Type: application/json' -d '{\"name\":\"${project.name}\",\"ver\":\"${project.version}\",\"token\":\"${token}\"}' http://10.13.0.131/deploy"
-            }
-        }
     }
 }
