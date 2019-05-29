@@ -1,0 +1,31 @@
+{
+  "name": "fazzcard-swagger",
+  "version": "1.0.0",
+  "description": "Fazzcard API Documentation",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/payfazz/fazzcard-swagger.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/payfazz/fazzcard-swagger/issues"
+  },
+  "homepage": "https://github.com/payfazz/fazzcard-swagger#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-swagger-ui-router": "^2.3.0",
+    "js-yaml": "^3.12.1",
+    "pug": "^2.0.3",
+    "swagger-client": "^3.8.23",
+    "swagger-ui": "^3.20.7",
+    "swagger-ui-dist": "^3.20.7",
+    "swagger-ui-express": "^4.0.2",
+    "yamljs": "^0.3.0"
+  }
+}
