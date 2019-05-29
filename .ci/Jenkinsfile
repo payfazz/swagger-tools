@@ -2,16 +2,19 @@ node {
     def project
     def image
     
-    docker.withRegistry('http://localhost:5000') {
+    docker.withRegistry('https://docker.fazzfinancial.com/fazzcard') {
         stage('Prepare') {
             checkout scm
             project = readYaml file: './.ci/project.yml'
         }
-        stage('Build') {
-            image = docker.build("${project.name}:${project.version}", "-f ./.ci/Dockerfile .")
-        }
-        stage('Push') {
+        stage('Push to fazz registry') {
+            image = docker.build("fazzcard/${project.name}:${project.version}", "-f ./.ci/Dockerfile .")
+            withCredentials([string(credentialsId: 'docker-fazzfinancial', variable: 'pass')]) {
+                sh "docker login docker.fazzfinancial.com -u sebo -p ${pass}"
+            }
+            GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
             image.push()
+            image.push("${GIT_COMMIT_HASH}")
         }
     }
 }
