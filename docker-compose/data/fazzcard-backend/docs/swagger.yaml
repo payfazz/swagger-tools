@@ -1,0 +1,72 @@
+openapi: "3.0.0"
+info:
+  title: FazzCard-Backend API Contract
+  version: 0.0.1
+servers:
+  - url: https://secure.fazzcard.com
+    description: Production
+components:
+  schemas:
+  # REQUEST BODY
+    Register:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          example: "0818161301"
+        referralCode:
+          type: string
+          example: "3db9fcd301"
+        userType:
+          type: string
+          example: "fazzcard"
+    
+    # RESPONSE BODY
+    GetReferralCode:
+      type: object
+      properties:
+        userType:
+          type: string
+          example: "fazzcard"
+        
+paths:
+  /v1/external/users/referral/{referralID}:
+    get:
+      tags:
+        - Referral Registration
+      summary: Get referral status
+      parameters:
+      - name: referralID
+        required: true
+        in: path
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: "Success get order id"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetReferralCode"
+
+  /v1/external/users/register:
+    post:
+      tags:
+        - Register User
+      summary: Register User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Register"
+      responses:
+        "200":
+          description: Success register user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "success"
